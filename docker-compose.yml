@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build: .
+    env_file:
+      - .env
+    environment:
+      - FLASK_DEBUG=development
+      - FLASK_APP=app.py
+      - HOST=${HOST}
+      - USER_HOST=${USER_HOST}
+      - PASSWORD_HOST=${PASSWORD_HOST}
+      - DB_HOST=${DB_HOST}
+      - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
+      - AWS_BUCKET_REGION=${AWS_BUCKET_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_ACCESS_SECRET_KEY=${AWS_ACCESS_SECRET_KEY}
+    ports:
+      - "5007:5000"
