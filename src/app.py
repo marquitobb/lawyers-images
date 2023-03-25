@@ -18,9 +18,10 @@ def index():
 @app.route(f'{PATH_API}', methods=['POST'])
 def upload_image():
     data = request.get_json()
-    # images_lawyers = LawyersImages().get_connection()
-    # data = {"images": images_lawyers, "status": "success"}
-    response_data = LawyersImages().save_image(lawyer_id=data["id_lawyer"], image_file=data["image_base"])
+    response_data = LawyersImages().save_image(
+        image_file=data["image_base"],
+        id_lawyer=data["id_lawyer"]
+    )
     return jsonify(response_data)
 
 if __name__ == '__main__':

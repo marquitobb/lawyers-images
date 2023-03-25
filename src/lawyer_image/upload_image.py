@@ -28,7 +28,6 @@ def save_base64_to_image(id_lawyer:int, str_base64: str)-> Tuple[str, str]:
 
     return image_path, id_unique
 
-
 def upload_image_bucket(image_path: str, id_unique: str) -> bool:
     with open(image_path, "rb") as f:
         img = f.read()
@@ -52,7 +51,7 @@ def upload_image_bucket(image_path: str, id_unique: str) -> bool:
         print(e)
         return False
 
-def get_image_url(id_unique: str):
+def get_image_url(id_unique: str) -> str:
     s3_client = boto3.client(
         "s3",
         aws_access_key_id=str(os.environ.get('AWS_ACCESS_KEY_ID')),
