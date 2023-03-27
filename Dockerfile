@@ -1,9 +1,6 @@
 # Usa una imagen de Python como base
 FROM python:3.8-slim-buster
 
-# Establece el directorio de trabajo en /app
-WORKDIR /app
-
 RUN pip install --upgrade pip
 
 RUN pip install --no-cache-dir certifi
