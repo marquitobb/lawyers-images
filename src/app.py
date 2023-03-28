@@ -24,6 +24,33 @@ def upload_image():
     )
     return jsonify(response_data)
 
+@app.route(f'{PATH_API}', methods=['PUT'])
+def update_image():
+    data = request.get_json()
+    response_data = LawyersImages().update_image(
+        image_file=data["image_base"],
+        id_lawyer=data["id_lawyer"]
+    )
+    return jsonify(response_data)
+
+@app.route(f'{PATH_API}', methods=['GET'])
+def get_image():
+    id_lawyer = request.args.get('id_lawyer')
+    response_data = LawyersImages().get_image(
+        id_lawyer=id_lawyer
+    )
+    return jsonify(response_data)
+
+@app.route(f'{PATH_API}', methods=['DELETE'])
+def delete_image():
+    id_lawyer = request.args.get('id_lawyer')
+    response_data = LawyersImages().delete_image(
+        id_lawyer=id_lawyer
+    )
+    return jsonify(response_data)
+
+
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    app.run(debug=True, port=5003, host='0.0.0.0')
 

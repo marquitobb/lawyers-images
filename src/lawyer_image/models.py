@@ -32,14 +32,43 @@ class LawyerImageModel:
         finally:
             self.connection.close()
 
-
-    def get_all_lawyer_images(self):
+    def update_lawyer_image(self, id_lawyer, image_path):
         try:
             with self.connection.cursor() as cursor:
-                sql = "SELECT * FROM lawyer_images"
+                # Actualizar los campos correspondientes de la tabla de abogados
+                sql = "UPDATE lawyer_images SET image_url = %s WHERE id_lawyer = %s"
+                cursor.execute(sql, (image_path, id_lawyer))
+                self.connection.commit()  # Confirmar la actualización en la base de datos
+                print("Se ha actualizado la imagen del abogado con id {}.".format(id_lawyer))
+                return True
+        except Exception as e:
+            print("Error al actualizar la imagen del abogado: {}".format(str(e)))
+            return False
+        finally:
+            self.connection.close()  # Cerrar la conexión con la base de datos
+
+
+    def get_lawyer_images(self, id_lawyer):
+        try:
+            with self.connection.cursor() as cursor:
+                sql = f"SELECT * FROM lawyer_images where id_lawyer={id_lawyer}"
                 cursor.execute(sql)
                 result = cursor. fetchall()
                 return result
         finally:
             # Cierra la conexión
+            self.connection.close()
+
+    def delete_lawyer_image(self, id_lawyer) -> bool:
+        try:
+            with self.connection.cursor() as cursor:
+                sql = f"DELETE FROM lawyer_images WHERE id_lawyer={id_lawyer}"
+                cursor.execute(sql)
+                self.connection.commit()
+                print("Se ha eliminado la imagen del abogado con id {}.".format(id_lawyer))
+                return True
+        except Exception as e:
+            print("Error al eliminar la imagen del abogado: {}". format(str(e)))
+            return False
+        finally:
             self.connection.close()
